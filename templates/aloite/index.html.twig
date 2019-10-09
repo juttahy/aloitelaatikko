@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Aloitelaatikko{% endblock %}
+
+{% block body %}
+
+    
+    <h1>Aloitelistaus</h1>
+    
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th>ID</th>
+            <th>Aihe</th>
+            <th>Kuvaus</th>
+            <th>Pvm</th>
+            <th>Toiminnot</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for aloite in aloitteet %}
+            <tr>
+                <th>{{ aloite.id }}</th>
+                <td>{{ aloite.aihe }}</td>
+                <td>{{ aloite.kuvaus }}</td>
+                <td>{{ aloite.kirjauspvm|localizeddate('long', 'short') }}</td>
+                <td>
+                    <a href="{{ path('aloite_nayta', {id: aloite.id}) }}" class="btn btn-dark">Näytä</a>
+                    <a href="{{ path('aloite_muokkaa', {id: aloite.id}) }}" class="btn btn-success">Muokkaa</a>
+                    <button poista-aloite="{{ aloite.id }}" class="btn btn-danger poista-aloite">Poista</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="js/main.js"></script>
+{% endblock %}
